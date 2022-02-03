@@ -3,13 +3,13 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjIsInVzZ
 ###
 
 POST http://localhost:5000/users
-Content-Type: "application/json"
+Content-Type: application/json
 
 {
-    "name": "test",
+    "name": "tesdgst",
     "email": "test2@gmail.com",
     "password": "test",
-    "confirmPassword": "test"
+    "confirmPassword": "tasfafest"
 }
 
 ###
@@ -18,8 +18,8 @@ POST http://localhost:5000/login
 Content-Type: application/json
 
 {
-    "email": "test2@gmail.com",
-    "password": "test"
+    "email": "riz@gmail.com",
+    "password": "123"
 }
 
 ###
@@ -28,4 +28,4 @@ GET http://localhost:5000/token
 
 ###
 
-DELETE  http://localhost:5000/logout
+DELETE http://localhost:5000/logout

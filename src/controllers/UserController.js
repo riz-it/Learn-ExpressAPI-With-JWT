@@ -16,7 +16,7 @@ export const getUsers = async (req, res) => {
 export const Register = async (req, res) => {
   const { name, email, password, confirmPassword } = req.body;
   if (password !== confirmPassword) {
-    res.status(400).json({
+    return res.status(400).json({
       message: "Password and Confirm Password does not match",
     });
   }
@@ -39,18 +39,18 @@ export const Register = async (req, res) => {
 export const Login = async (req, res) => {
   const { email, password } = req.body;
   try {
-    const user = await Users.findAll({
+    const user = await Users.findOne({
       where: {
         email: email,
       },
     });
-    const match = await bcrypt.compare(password, user[0].password);
+    const match = await bcrypt.compare(password, user.password);
     if (!match) {
-      res.status(400).json({ message: "Invalid Password" });
+      return res.status(400).json({ message: "Invalid Password" });
     }
-    const userID = user[0].id;
-    const userName = user[0].name;
-    const userEmail = user[0].email;
+    const userID = user.id;
+    const userName = user.name;
+    const userEmail = user.email;
     const accessToken = jwt.sign(
       { userID, userName, userEmail },
       process.env.ACCESS_TOKEN_SECRET,
@@ -108,5 +108,5 @@ export const Logout = async (req, res) => {
     }
   );
   res.clearCookie("refreshToken");
-  res.sendStatus(200);
+  return res.sendStatus(200);
 };

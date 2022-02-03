@@ -7,21 +7,21 @@ export const RefreshToken = async (req, res) => {
     if (!refreshToken) {
       return res.sendStatus(401);
     }
-    const user = await Users.findAll({
+    const user = await Users.findOne({
       where: {
         refresh_Token: refreshToken,
       },
     });
 
-    if (!user[0]) return res.sendStatus(403);
+    if (!user) return res.sendStatus(403);
     jwt.verify(
       refreshToken,
       process.env.REFRESH_TOKEN_SECRET,
       (err, decoded) => {
         if (err) return res.sendStatus(403);
-        const userID = user[0].id;
-        const userName = user[0].name;
-        const userEmail = user[0].email;
+        const userID = user.id;
+        const userName = user.name;
+        const userEmail = user.email;
         const accessToken = jwt.sign(
           { userID, userName, userEmail },
           process.env.ACCESS_TOKEN_SECRET,

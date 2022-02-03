@@ -14,5 +14,6 @@ router.get("/users", VerifyToken, getUsers);
 router.post("/users", Register);
 router.post("/login", Login);
 router.get("/token", RefreshToken);
-router.delete("/logout", Logout);
+router.get("/logout", Logout);
+
 export default router;
